@@ -33,7 +33,6 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
             while (rs.next()) {
 
                 categories.add(mapRow(rs));
-
             }
 
             return categories;
@@ -68,10 +67,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     public Category create(Category category) {
         String sql = "INSERT INTO categories (name, description) VALUES (?, ?)";
 
-        try (
-                Connection conn = getConnection();
-                PreparedStatement stmt =
-                        conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
@@ -131,11 +128,13 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
         String name = row.getString("name");
         String description = row.getString("description");
 
-        Category category = new Category() {{
-            setCategoryId(categoryId);
-            setName(name);
-            setDescription(description);
-        }};
+        Category category = new Category() {
+            {
+                setCategoryId(categoryId);
+                setName(name);
+                setDescription(description);
+            }
+        };
 
         return category;
     }
