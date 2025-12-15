@@ -39,7 +39,7 @@ public class CategoriesController
     }
 
     // add the appropriate annotation for a get action
-    @RequestMapping(path = "/categories{id}")
+    @RequestMapping(path = "/categories/{id}")
     public Category getById(@PathVariable int id) {
        return categoryDao.getById(id);
     }
@@ -61,16 +61,19 @@ public class CategoriesController
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
-    public void updateCategory(@PathVariable int id, @RequestBody Category category)
-    {
+    @RequestMapping
+    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
         // update the category by id
+
+        categoryDao.update(id, category);
     }
 
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
-    public void deleteCategory(@PathVariable int id)
-    {
+    public void deleteCategory(@PathVariable int id) {
         // delete the category by id
+
+        categoryDao.delete(id);
     }
 }
