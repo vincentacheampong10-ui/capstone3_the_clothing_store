@@ -33,16 +33,12 @@ public class ShoppingCart
         return items.get(productId);
     }
 
-    public BigDecimal getTotal()
-    {
+    public BigDecimal getTotal() {
         BigDecimal total = items.values()
-                                .stream()
-                                .map(i -> i.getLineTotal())
-                                .reduce( BigDecimal.ZERO, (lineTotal, subTotal) -> subTotal.add(lineTotal));
+                .stream()
+                .map(i -> i.getLineTotal())
+                .reduce(BigDecimal.ZERO, (lineTotal, subTotal) -> subTotal.add(lineTotal));
 
         return total;
     }
-
-
-
 }
